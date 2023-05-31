@@ -13,10 +13,17 @@ import Customers from './pages/Customers';
 import BrandList from './pages/BrandList';
 import Brand from './pages/Brand';
 import Category from './pages/Category';
-
+import CategoryList from './pages/CategoryList';
+import ColorList from './pages/ColorList';
+import Color from './pages/Color';
+import Enquiries from './pages/Enquiries';
+import BlogList from './pages/BlogList';
+import BlogCatList from './pages/BlogCatList';
+import Orders from './pages/Orders';
+import Blog from './pages/Blog';
 function App() {
   return (
-    <div className="">
+    <div className="bg-[#f5f5f5]">
       <BrowserRouter>
       <Routes>
           <Route path='/forgot-password' element={<ForgotPassword />} />
@@ -32,8 +39,18 @@ function App() {
           <Route path='brand' element={<Brand />} />
           <Route path='list-brand' element={<BrandList />} />
           <Route path='category' element={<Category />} />
+          <Route path='list-category' element={<CategoryList />} />
+          <Route path='color' element={<Color />} />
+          <Route path='list-color' element={<ColorList />} />
+          <Route path='enquiries' element={<Enquiries />} />
+          <Route path='blog' element={<Blog />} />
+          <Route path='blog-list' element={<BlogList />} />
+          <Route path='blog-category-list' element={<BlogCatList />} />
+          <Route path='orders' element={<Orders />} />
+          <Route path='list-category' element={<CategoryList />} />
+          <Route path='list-brnad' element={<BrandList />} />
 
-
+          
 
 
           {/* <Route path='about' element={<About />} />

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table } from 'antd';
 
-const ProductList = () => {
+const BlogList = () => {
   const dataSource = [
     {
       key: '1',
@@ -42,8 +42,9 @@ const ProductList = () => {
         <h3 className='font-bold text-[1.5rem] text-gray-900 my-6'>Colors</h3>
         <Table dataSource={dataSource} columns={columns} />;
       </div>
+        
     </div>
   )
 }
 
-export default ProductList
+export default BlogList

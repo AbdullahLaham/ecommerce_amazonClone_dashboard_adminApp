@@ -1,7 +1,6 @@
 import React from 'react'
 import { Table } from 'antd';
-
-const ProductList = () => {
+const CategoryList = () => {
   const dataSource = [
     {
       key: '1',
@@ -46,4 +45,4 @@ const ProductList = () => {
   )
 }
 
-export default ProductList
+export default CategoryList

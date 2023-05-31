@@ -29,7 +29,7 @@ const MainLayout = () => {
   } = theme.useToken();
   const navigate = useNavigate();
   return (
-    <Layout /* onContextMenu={(e) => e.preventDefault()} */>
+    <Layout /* onContextMenu={(e) => e.preventDefault()} */ className="bg-[#f5f5f5]">
       <Sider trigger={null} collapsible collapsed={collapsed} className="min-h-[100vh]">
         <div className="logo">
           <h2 className="text-white text-center py-1 text-[1.2rem]  font-bold mb-0 bg-[#ffc800] m-0 ">
