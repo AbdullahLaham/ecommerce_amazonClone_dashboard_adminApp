@@ -21,6 +21,8 @@ import BlogList from './pages/BlogList';
 import BlogCatList from './pages/BlogCatList';
 import Orders from './pages/Orders';
 import Blog from './pages/Blog';
+import BlogCategory from './pages/BlogCategory';
+import CouponList from './pages/CouponList';
 function App() {
   return (
     <div className="bg-[#f5f5f5]">
@@ -32,15 +34,21 @@ function App() {
         <Route path='/admin' element={<MainLayout />} >
           <Route index element={<Dashboard />} />
           <Route path='coupon' element={<Coupon />} />
+          <Route path='coupon/:id' element={<Coupon />} />
+          <Route path='list-coupon' element={<CouponList />} />
           <Route path='customers' element={<Customers />} />
           <Route path='product' element={<Product />} />
           <Route path='list-product' element={<ProductList />} />
 
           <Route path='brand' element={<Brand />} />
+          <Route path='brand/:id' element={<Brand />} />
+          
           <Route path='list-brand' element={<BrandList />} />
           <Route path='category' element={<Category />} />
+          <Route path='category/:id' element={<Category />} />
           <Route path='list-category' element={<CategoryList />} />
           <Route path='color' element={<Color />} />
+          <Route path='color/:id' element={<Color />} />
           <Route path='list-color' element={<ColorList />} />
           <Route path='enquiries' element={<Enquiries />} />
           <Route path='blog' element={<Blog />} />
@@ -49,6 +57,7 @@ function App() {
           <Route path='orders' element={<Orders />} />
           <Route path='list-category' element={<CategoryList />} />
           <Route path='list-brnad' element={<BrandList />} />
+          <Route path='blog-category' element={<BlogCategory />} />
 
           
 

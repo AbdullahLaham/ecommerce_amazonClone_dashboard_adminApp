@@ -2,9 +2,11 @@ import React from 'react'
 import {BsArrowDownRight} from 'react-icons/bs'
 import { Column } from '@ant-design/plots';
 import { Table } from 'antd';
-
+import {BiEdit} from 'react-icons/bi';
+import {AiFillDelete} from 'react-icons/ai'
+import { useSelector } from 'react-redux';
 const Dashboard = () => {
-
+  const {customers} = useSelector((state) => state?.customers)
  const data = [
     {
       type: "Jan",
@@ -64,6 +66,7 @@ const Dashboard = () => {
         // 'top', 'bottom', 'middle',
         style: {
           fill: '#FFFFFF',
+          ninWidth: '100%',
           opacity: 0.6,
         },
       },
@@ -117,12 +120,12 @@ const Dashboard = () => {
     ];
 
   return (
-    <div className=''>
+    <div className='flex-1'>
         <h3 className='font-bold text-[1.8rem] mb-2 text-gray-900'>Dashboard</h3>
 
-        <section className='flex items-center justify-between'>
+        <section className='flex items-center justify-center gap-[1rem] flex-wrap'>
           <div className='flex justify-between items-center gap-3'>
-            <div className='flex justify-between gap-3 items-end rounded-md w-[22rem] h-[5.5rem] shadow-xs bg-gray-100 px-3 py-3 '>
+            <div className='flex justify-between gap-3 items-end rounded-md w-[15rem] lg:w-[22rem] h-[5.5rem] shadow-xs bg-gray-100 px-3 py-3 '>
               <div className='flex flex-col justify-between'>
                 <p className='font-bold text-[1.1rem] mb-1 text-gray-700'>
                   Total
@@ -135,7 +138,7 @@ const Dashboard = () => {
               <div>
                 
                 <p className='font-bold text-[.9rem] text-gray-700 '>
-                  <p className='font-bold text-[1rem] text-gray-800 flex items-center gap-2 justify-end'>
+                  <p className='font-bold text-[1rem] text-gray-800 flex items-center gap-2 justify-end red'>
                     <BsArrowDownRight /> 32%
                   </p>
                   Compared To April 2022
@@ -147,7 +150,7 @@ const Dashboard = () => {
           </div>
 
           <div className='flex justify-between items-center gap-3'>
-            <div className='flex justify-between gap-3 items-end rounded-md w-[22rem] h-[5.5rem] shadow-xs bg-gray-100 px-3 py-3 '>
+            <div className='flex justify-between gap-3 items-end rounded-md w-[15rem] clg:w-[22rem] shadow-xs bg-gray-100 px-3 py-3 '>
               <div className='flex flex-col justify-between'>
                 <p className='font-bold text-[1.1rem] mb-1 text-gray-700'>
                   Total
@@ -160,7 +163,7 @@ const Dashboard = () => {
               <div>
                 
                 <p className='font-bold text-[.9rem] text-gray-700 '>
-                  <p className='font-bold text-[1rem] text-gray-800 flex items-center gap-2 justify-end'>
+                  <p className='font-bold text-[1rem] text-gray-800 flex items-center gap-2 justify-end red'>
                     <BsArrowDownRight /> 32%
                   </p>
                   Compared To April 2022
@@ -172,7 +175,7 @@ const Dashboard = () => {
           </div>
 
           <div className='flex justify-between items-center gap-3'>
-            <div className='flex justify-between gap-3 items-end rounded-md w-[22rem] h-[5.5rem] shadow-xs bg-gray-100 px-3 py-3 '>
+            <div className='flex justify-between gap-3 items-end rounded-md w-[15rem]  lg:w-[22rem] h-[5.5rem] shadow-xs bg-gray-100 px-3 py-3 '>
               <div className='flex flex-col justify-between'>
                 <p className='font-bold text-[1.1rem] mb-1 text-gray-700'>
                   Total
@@ -185,7 +188,7 @@ const Dashboard = () => {
               <div>
                 
                 <p className='font-bold text-[.9rem] text-gray-700 '>
-                  <p className='font-bold text-[1rem] text-gray-800 flex items-center gap-2 justify-end'>
+                  <p className='font-bold text-[1rem] text-gray-800 flex items-center gap-2 justify-end green'>
                     <BsArrowDownRight /> 32%
                   </p>
                   Compared To April 2022
@@ -204,7 +207,7 @@ const Dashboard = () => {
         </div>
 
         <div className=' my-6'>
-          <h3 className='font-bold text-[1.5rem] text-gray-900 my-6'>Recent Orders</h3>
+          <h3 className='font-bold text-[1.5rem] text-gray-900 my-6 mx-3'>Recent Orders</h3>
           <Table dataSource={dataSource} columns={columns} />;
 
         </div>
