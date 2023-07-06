@@ -10,7 +10,15 @@ const login = async (userData) => {
 
     return res.data;
 }
+const logout = async (userData) => {
+    const res = await API.post(`/user/logout`, userData);
+    console.log(res);
+    if (res.data) {
+        localStorage.removeItem('auth');
+    }
 
+    return res.data;
+}
 const getOrders = async () => {
     const res = await API.get(`/user/get-orders`);
     console.log(res);
@@ -23,11 +31,13 @@ const getOrders = async () => {
 }
 
 
-const logout = async (userData) => {
-    const res = await API.post(`/user/logout`, userData);
+
+const getOrdersByID = async (id) => {
+    const res = await API.get(`/user/get-orders/${id}`);
     console.log(res);
+    
     if (res.data) {
-        localStorage.removeItem('auth');
+        localStorage.setItem('userOrders', JSON.stringify(res.data))
     }
 
     return res.data;
@@ -36,7 +46,8 @@ const logout = async (userData) => {
 const authService = {
     login,
     logout,
-    getOrders
+    getOrders,
+    getOrdersByID
 }
 
 

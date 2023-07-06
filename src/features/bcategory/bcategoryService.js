@@ -36,10 +36,35 @@ const deleteBlogCategory = async (id) => {
     return res.data;
 }
 
+const updateBlogCategory = async (data) => {
+    const {id, bcategory} = data;
+    const res = await API.put(`/blogcategory/${id}`, bcategory);
+    console.log(res, 'pppppppppppooooooooo');
+
+    if (res.data) {
+        localStorage.setItem('updatedBlogCategory', {});
+    }
+
+    return res.data;
+}
+
+const getBlogCategory = async (id) => {
+    const res = await API.get(`/blogcategory/${id}`);
+    console.log(res, 'pppppppppppooooooooo');
+
+    if (res.data) {
+        localStorage.setItem('currentBlogCategory', {});
+    }
+
+    return res.data;
+}
+
 const bcategoryService = {
     getBlogCategories,
     createBlogCategory,
     deleteBlogCategory,
+    updateBlogCategory,
+    getBlogCategory,
 }
 
 

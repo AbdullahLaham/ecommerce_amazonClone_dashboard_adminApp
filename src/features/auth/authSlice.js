@@ -13,6 +13,7 @@ import Cookies from 'cookies-js';
 const initialState = { 
     user: localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth')): null,
     orders: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')): [],
+    currentOrder: {},
     isError: false,
     isLoading: false,
     isSuccess: false,
@@ -38,6 +39,19 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
         console.log('hello');
 
         return await authService.getOrders();
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+
+ })
+
+
+ export const getOrdersByID = createAsyncThunk('order/get-userOrders', async (id, thunkAPI) => {
+    try {
+        console.log('hello');
+
+        return await authService.getOrdersByID(id);
         
     } catch (error) {
         return thunkAPI.rejectWithValue(error)
@@ -127,6 +141,29 @@ const authSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.orders = null;
+        state.message = action.error;
+    })
+
+
+
+    .addCase(getOrdersByID.pending,(state) => {state.isLoading = true }  )
+    //  .addCase(login.fulfilled,(state, action) => {
+    //     state.isLoading = false ;
+    //     state.isSuccess = true;
+    //     state.user = action?.payload;
+    // })
+    .addCase(getOrdersByID.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false ;
+        state.isSuccess = true;
+        state.currentOrder = action?.payload;
+    })
+
+    .addCase(getOrdersByID.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        state.currentOrder = null;
         state.message = action.error;
     })
 

@@ -23,6 +23,8 @@ import Orders from './pages/Orders';
 import Blog from './pages/Blog';
 import BlogCategory from './pages/BlogCategory';
 import CouponList from './pages/CouponList';
+import ViewEnquiry from './pages/ViewEnquiry';
+import ViewUserOrders from './pages/ViewUserOrders';
 function App() {
   return (
     <div className="bg-[#f5f5f5]">
@@ -51,13 +53,17 @@ function App() {
           <Route path='color/:id' element={<Color />} />
           <Route path='list-color' element={<ColorList />} />
           <Route path='enquiries' element={<Enquiries />} />
+          <Route path='enquiry/:id' element={<ViewEnquiry />} />
           <Route path='blog' element={<Blog />} />
           <Route path='blog-list' element={<BlogList />} />
+          <Route path='blog/:id' element={<Blog />} />
           <Route path='blog-category-list' element={<BlogCatList />} />
           <Route path='orders' element={<Orders />} />
+          <Route path='order/:id' element={<ViewUserOrders />} />
           <Route path='list-category' element={<CategoryList />} />
           <Route path='list-brnad' element={<BrandList />} />
           <Route path='blog-category' element={<BlogCategory />} />
+          <Route path='blog-category/:id' element={<BlogCategory />} />
 
           
 

@@ -5,7 +5,11 @@ import EnquiryService from './enquiryService';
 
 
 const initialState = { 
-    enquiries: localStorage.getItem('enquiries') ? JSON.parse(localStorage.getItem('enquiries')): [],
+    enquiries: [],
+    currentEnquiry: {},
+    deletedEnquiry: {},
+    updatedEnquiry: {},
+
     isError: false,
     isLoading: false,
     isSuccess: false,
@@ -26,6 +30,48 @@ export const getEnquiries = createAsyncThunk('enquiry/get-enquiries', async ( th
 
  })
 
+
+
+ export const getEnquiry = createAsyncThunk('enquiry/get-enquiry', async (id, thunkAPI) => {
+    try {
+        console.log('hello');
+
+        return await EnquiryService.getEnquiry(id);
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+
+ })
+ 
+ 
+ export const deleteEnquiry = createAsyncThunk('enquiry/delete-enquiry', async (id, thunkAPI) => {
+    try {
+        console.log('hello');
+
+        return await EnquiryService.deleteEnquiry(id);
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+
+ });
+
+
+  
+ export const updateEnquiry = createAsyncThunk('enquiry/update-enquiry', async (data, thunkAPI) => {
+    try {
+        console.log('hello');
+
+        return await EnquiryService.updateEnquiry(data);
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+
+ });
+
+
  export const resetState = createAction('Reset-all');
 const enquirySlice = createSlice({
   name: 'enquiries',
@@ -36,11 +82,8 @@ const enquirySlice = createSlice({
   extraReducers: (builder ) => {
      builder
      .addCase(getEnquiries.pending,(state) => {state.isLoading = true }  )
-    //  .addCase(login.fulfilled,(state, action) => {
-    //     state.isLoading = false ;
-    //     state.isSuccess = true;
-    //     state.user = action?.payload;
-    // })
+    
+     
     .addCase(getEnquiries.fulfilled,(state, action) => {
         state.isLoading = false ;
         state.isError = false ;
@@ -55,6 +98,71 @@ const enquirySlice = createSlice({
         state.enquiries = null;
         state.message = action.error;
     })
+
+
+
+    .addCase(getEnquiry.pending,(state) => {state.isLoading = true }  )
+    
+     
+    .addCase(getEnquiry.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false ;
+        state.isSuccess = true;
+        state.currentEnquiry = action?.payload;
+    })
+
+    .addCase(getEnquiry.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        state.currentEnquiry = null;
+        state.message = action.error;
+    })
+
+
+    .addCase(deleteEnquiry.pending,(state) => {state.isLoading = true }  )
+    
+     
+    .addCase(deleteEnquiry.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false ;
+        state.isSuccess = true;
+        state.deletedEnquiry = action?.payload;
+    })
+
+    .addCase(deleteEnquiry.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        state.deletedEnquiry = null;
+        state.message = action.error;
+    })
+
+
+    
+    .addCase(updateEnquiry.pending,(state) => {state.isLoading = true }  )
+    
+     
+    .addCase(updateEnquiry.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false ;
+        state.isSuccess = true;
+        state.updatedEnquiry = action?.payload;
+    })
+
+    .addCase(updateEnquiry.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        state.updatedEnquiry = null;
+        state.message = action.error;
+    })
+
+
+
+
+
+
 
     .addCase(resetState, () => initialState)
     },

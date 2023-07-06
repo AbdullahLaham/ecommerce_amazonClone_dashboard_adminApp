@@ -10,8 +10,8 @@ import { deleteImage, uploadImage } from '../features/upload/uploadSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useNavigate } from 'react-router-dom';
-import { createBlog, resetState } from '../features/blog/blogSlice';
+import { useNavigate, useParams } from 'react-router-dom';
+import { createBlog, getBlog, getBlogs, resetState, updateBlog } from '../features/blog/blogSlice';
 import { toast } from 'react-toastify';
 import { AiOutlineClose } from 'react-icons/ai';
 import { getBlogCategories } from '../features/bcategory/bcategorySlice';
@@ -19,6 +19,9 @@ import { getBlogCategories } from '../features/bcategory/bcategorySlice';
 const Blog = () => {
   const [value, setValue]=  useState('');  
   const [category, setCategory] = useState('');
+  // Blog Id
+  const {id} = useParams();
+
   // dispatch
   const dispatch = useDispatch();
 
@@ -26,32 +29,54 @@ const Blog = () => {
 
 
   const handleSubmit = () => { 
-    dispatch(createBlog(formik.values));
-    formik.resetForm();
-    dispatch(resetState())
-    setTimeout(() => {
-      navigate('/admin/blog-list')
-    }, 3000)
-    alert(JSON.stringify(formik.values))
+    if (id !== undefined) {
+      const data = {id, blog: formik.values} ;
+      dispatch(updateBlog(data));
+      formik.resetForm();
+      dispatch(resetState());
+      dispatch(getBlogs());
+      setTimeout(() => {
+        navigate('/admin/blog-list')
+      }, 1000)
+      // alert(JSON.stringify(formik.values))
+    } else {
+      dispatch(createBlog(formik.values));
+      formik.resetForm();
+      dispatch(resetState())
+      setTimeout(() => {
+        navigate('/admin/blog-list');
+      }, 1000)
+      // alert(JSON.stringify(formik.values))
+    }
   }
 
     let {blogCategories} = useSelector((state) => state?.blogCategories);
 
     let {images} = useSelector((state) => state?.uploads);
-    let {createdBlog, isSuccess, isError, isLoading} = useSelector((state) => state?.blogs);
-
+    let {createdBlog, deletedBlog, updatedBlog, currentBlog, isSuccess, isError, isLoading} = useSelector((state) => state?.blogs);
 
     useEffect(() => {
-      if (createdBlog && isSuccess) {
+      if (id !== undefined) {
+        dispatch(getBlog(id));
+      }
+    }, [id])
+    useEffect(() => {
+      if (isSuccess && createdBlog?.title) {
         toast.success("Product Added Successfully")
       }
-      if (createdBlog && isError) {
+      if (isError && createdBlog?.title) {
+        toast.error("Something went error")
+      }
+      if (isSuccess && updatedBlog?.title) {
+        toast.success("Product Updated Successfully")
+      }
+      if (isError && updatedBlog?.title) {
         toast.error("Something went error")
       }
       if (isLoading) {
         
       }
-    }, [isSuccess, isLoading, isError])
+    }, [isSuccess, isLoading, isError, updatedBlog])
 
     blogCategories = blogCategories?.map((category) => {
       return {value: category.title, label: category.title}
@@ -65,10 +90,11 @@ const Blog = () => {
   
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      title: '',
-      description: '',
-      category: '',
+      title: currentBlog?.title || '',
+      description: currentBlog?.description || '',
+      category: currentBlog?.category || '',
       images: '',
     },
     
@@ -84,6 +110,7 @@ const Blog = () => {
   useEffect(() => {
     dispatch(getBlogCategories());
   }, []);
+
   return (
     <div>
         <h4 className='font-bold text-[1.5rem] text-gray-900 my-6'>Add Blog</h4>

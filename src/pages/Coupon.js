@@ -46,7 +46,7 @@ const Coupon = () => {
         toast.error("Something went error")
       }
       if (isSuccess && updatedCoupon?.name) {
-        toast.success("Coupon Added Successfully")
+        toast.success("Coupon Updated Successfully")
       }
       if (isError && updatedCoupon?.name) {
         toast.error("Something went error")
@@ -74,7 +74,7 @@ const Coupon = () => {
     enableReinitialize: true,
     initialValues: {
       name: currentCoupon?.name || '',
-      expiry: currentCoupon?.expiry || '',
+      expiry: currentCoupon?.expiry && new Date(currentCoupon?.expiry).toISOString().slice(0,10) || '',
       discount: currentCoupon?.discount || '',
     },
     

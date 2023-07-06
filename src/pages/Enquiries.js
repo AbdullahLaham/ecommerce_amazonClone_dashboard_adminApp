@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react'
-import { Table } from 'antd';
+import React, { useEffect, useState } from 'react'
+import { Select, Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
 import {getBlogCategories} from '../features/bcategory/bcategorySlice'
-import { getEnquiries } from '../features/enquiry/enquirySlice';
-
+import { deleteEnquiry, getEnquiries, getEnquiry, resetState, updateEnquiry } from '../features/enquiry/enquirySlice';
+import CustomModal from '../components/CustomModal';
+import {BsEye} from 'react-icons/bs'
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 const Enquiries = () => {
     
       
@@ -39,7 +42,88 @@ const Enquiries = () => {
       ]
 
 
- const {enquiries} = useSelector((state) => state?.enquiries);
+
+
+      const {id} = useParams();
+    const navigate = useNavigate();
+    const {enquiries, currentEnquiry, deletedEnquiry, updatedEnquiry} = useSelector((state) => state?.enquiries);
+
+    useEffect(() => {
+        dispatch(getEnquiry(id));
+    }, [id]);
+    console.log(currentEnquiry, 'yy');
+
+
+
+    const updateData = (dataa) => { 
+        const {val,id} = dataa;
+        const data = {enquiry: {status: val}, id}
+        dispatch(updateEnquiry(data));
+        dispatch(resetState())
+        formik.resetForm();
+        
+        console.log('hello')
+        
+      }
+
+
+
+    let enqSchema = yup.object().shape({
+        status: yup.string().required('Status is Required'),
+        
+      });
+      
+    
+      const formik = useFormik({
+        enableReinitialize: true,
+        initialValues: {
+            status: '',
+        },
+        
+        onSubmit: updateData,
+        validationSchema: enqSchema,
+      });
+      console.log(formik.values.status);
+
+
+      const statuss = [
+        {label: "Submitted", value: "Submitted"},
+        {label: "Contacted", value: "Contacted"},
+        {label: "In Progress", value: "In Progress"},
+        {label: "Resolved", value: "Resolved"}
+      ]
+
+
+
+
+
+
+
+
+ useEffect(() => {
+   dispatch(getEnquiries())
+ }, [deletedEnquiry, updatedEnquiry]);
+ 
+ const [open, setOpen] = useState(false);
+ const [enquiryId, setEnquiryId] = useState('');
+ const showModal = (id) => {
+   setOpen(true);
+   setEnquiryId(id);
+   // performAction(id)
+ };
+ const hideModal = () => {
+   setOpen(false);
+ };
+
+ const performAction = () => {
+   dispatch(deleteEnquiry(enquiryId));
+   dispatch(resetState());
+   dispatch(getEnquiries());
+   setOpen(false);
+   
+ };
+
+
 
   console.log(enquiries, 'tttttttttt');
   const dispatch = useDispatch();
@@ -56,18 +140,22 @@ const Enquiries = () => {
       name: enquiry?.name,
       email: enquiry?.email,
       status: <>
-        <select className='px-[1rem] py-[.5rem] border border-gray-300 outlin-none rounded-lg'>
-          <option>{enquiry.status}</option>
-        </select>
+        <Select className=' my-[.5rem]'
+          defaultValue={enquiry?.status ? enquiry?.status : 'Submitted'}
+          placeholder='Select Status'
+          onChange={(val) => updateData({val: val, id: enquiry?._id})}
+          name='tag'
+          options={statuss}
+          />
       </>,
       createdAt: enquiry?.createdAt.slice(0, 10),
       action: <div className='flex items-center gap-2'>
-        <Link to='/'>
-          <BiEdit className='text-[1.2rem]'/>
+        <Link to={`/admin/enquiry/${enquiry?._id}`} >
+          <BsEye className='text-[1.2rem]'/>
         </Link> 
-        <Link>
+        <button onClick={() => showModal(enquiry?._id)} className='bg-transparent border-0 text-danger '>
           <AiFillDelete className='text-[1.2rem] hover:fill-red-500 decoration-none'/>
-        </Link>
+        </button>
       </div>,
       
 
@@ -78,12 +166,15 @@ const Enquiries = () => {
 
   return (
     <div>
+
       <div className=' my-6'>
         <h3 className='font-bold text-[1.5rem] text-gray-900 my-6'>Enquiries</h3>
-        <Table  dataSource={data1} columns={columns} />;
+        <Table  dataSource={data1} columns={columns} />
+        <CustomModal title='Are you sure you want to delete this Enquiry ? ' hideModal={hideModal} showModal={showModal}  open={open} performAction={performAction} />
       </div>
+
     </div>
   )
 }
 
-export default Enquiries
+export default Enquiries;

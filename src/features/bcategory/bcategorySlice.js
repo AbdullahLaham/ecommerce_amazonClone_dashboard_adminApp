@@ -2,12 +2,15 @@ import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import bCategoryService from './bcategoryService';
 
 import Cookies from 'cookies-js';
+import { dataItem } from 'react-widgets/cjs/Accessors';
 
 
 const initialState = { 
     blogCategories: localStorage.getItem('blogCategories') ? JSON.parse(localStorage.getItem('blogCategories')): [],
-    createdBlogCategory: localStorage.getItem('createdBlogCategory') ? JSON.parse(localStorage.getItem('createdBlogCategory')): [],
-    deletedBlogCategory: localStorage.getItem('createdBlogCategory') ? JSON.parse(localStorage.getItem('createdBlogCategory')): [],
+    createdBlogCategory: {},
+    deletedBlogCategory: {},
+    currentBlogCategory: {},
+    updatedBlogCategory: {},
     
     isError: false,
     isLoading: false,
@@ -52,6 +55,32 @@ export const getBlogCategories = createAsyncThunk('bcategory/get-bcategories', a
     }
 
  })
+
+ export const updateBlogCategory = createAsyncThunk('bcategory/update-bcategory', async (dataItem, thunkAPI) => {
+    try {
+        console.log('hello');
+
+        return await bCategoryService.updateBlogCategory(dataItem);
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+
+ })
+
+ export const getBlogCategory = createAsyncThunk('bcategory/get-bcategory', async (id, thunkAPI) => {
+    try {
+        console.log('hello');
+
+        return await bCategoryService.getBlogCategory(id);
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+
+ })
+
+
 
 
 export const resetState = createAction('Reset-all');
@@ -111,9 +140,7 @@ const bcategorySlice = createSlice({
         state.isError = false ;
         state.isSuccess = true;
         state.deletedBlogCategory = action?.payload;
-        state.blogCategories = state.blogCategories.map((categ) => {
-            return categ._id !== action.payload._id;
-        });
+       
     })
 
     .addCase(deleteBlogCategory.rejected,(state, action) => {
@@ -123,7 +150,47 @@ const bcategorySlice = createSlice({
         state.deletedBlogCategory = null;
         state.message = action.error;
     })
-    .addCase(resetState, () => initialState)
+
+
+    .addCase(getBlogCategory.pending,(state) => {state.isLoading = true }  )
+
+    .addCase(getBlogCategory.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false ;
+        state.isSuccess = true;
+        state.currentBlogCategory = action?.payload;
+    })
+
+    .addCase(getBlogCategory.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        state.currentBlogCategory = null;
+        state.message = action.error;
+    })
+
+
+
+
+
+
+    .addCase(updateBlogCategory.pending,(state) => {state.isLoading = true }  )
+
+    .addCase(updateBlogCategory.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false ;
+        state.isSuccess = true;
+        state.updatedBlogCategory = action?.payload;
+        
+    })
+
+    .addCase(updateBlogCategory.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        state.updatedBlogCategory = null;
+        state.message = action.error;
+    })
 
     },
 });

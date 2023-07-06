@@ -6,22 +6,9 @@ import { Link } from 'react-router-dom';
 import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
 import { getOrders } from '../features/auth/authSlice';
+import { BsEye } from 'react-icons/bs';
 const Orders = () => {
-    const dataSource = [
-        {
-          key: '1',
-          name: 'Mike',
-          product: 15,
-          status: '10 Downing Street',
-        },
-        {
-          key: '2',
-          name: 'Mike',
-          product: 15,
-          status: '10 Downing Street',
-        },
-      ];
-      
+
       const columns = [
         {
           title: 'SNo',
@@ -32,8 +19,16 @@ const Orders = () => {
           dataIndex: 'paymentIntent',
         },
         {
+          title: 'Amount',
+          dataIndex: 'amount',
+        },
+        {
           title: 'Products',
           dataIndex: 'products',
+        },
+        {
+          title: 'UserOrders',
+          dataIndex: 'orderProducts',
         },
         {
           title: 'orderBy',
@@ -68,12 +63,15 @@ const Orders = () => {
         return <div>{product.product.title} , </div> 
       }),
       orderBy: order?.orderBy?.firstname,
+      amount: order?.paymentIntent?.amount,
+      orderProducts: <Link to={`/admin/order/${order?._id}`}>View Order Products</Link>,
       paymentIntent: order?.paymentIntent?.status,
       createdAt: order?.createdAt.slice(0, 10),
       action: <div className='flex items-center gap-2'>
-        <Link to='/'>
-          <BiEdit className='text-[1.2rem]'/>
-        </Link> 
+        {/* <Link to={`/admin/order/${order?._id}`} >
+          <BsEye className='text-[1.2rem]'/>
+        </Link>  */}
+
         <Link>
           <AiFillDelete className='text-[1.2rem] hover:fill-red-500 decoration-none'/>
         </Link>
