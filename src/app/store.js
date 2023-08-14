@@ -8,7 +8,7 @@ import colorReducer from '../features/pcolor/pcolorSlice';
 import blogReducer from '../features/blog/blogSlice';
 import blogCategoryReducer from '../features/bcategory/bcategorySlice'
 import enquiryReducer from '../features/enquiry/enquirySlice'
-import orderReducer from '../features/auth/authSlice';
+// import orderReducer from '../features/auth/authSlice';
 import uploadReducer from '../features/upload/uploadSlice';
 import couponReducer from '../features/coupon/couponSlice';
 import chatReducer from '../features/chat/chatSlice'
@@ -23,7 +23,7 @@ export const store = configureStore({
         blogs: blogReducer,
         blogCategories: blogCategoryReducer,
         enquiries: enquiryReducer,
-        orders: orderReducer,
+        // orders: orderReducer,
         uploads: uploadReducer,
         coupons: couponReducer,
         chat: chatReducer

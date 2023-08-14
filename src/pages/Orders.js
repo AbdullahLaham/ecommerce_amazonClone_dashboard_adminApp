@@ -44,7 +44,7 @@ const Orders = () => {
         },
       ];
 
-  const {orders} = useSelector((state) => state?.orders);
+  const {orders} = useSelector((state) => state?.auth);
 
   console.log(orders, 'dddddddd');
   const dispatch = useDispatch();
