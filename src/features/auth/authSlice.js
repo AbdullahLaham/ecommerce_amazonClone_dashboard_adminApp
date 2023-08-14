@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 
 const initialState = { 
     user: localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth')): null,
-    orders: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')): [],
+    orders: [],
     allUsers: [],
     currentOrder: {},
     isError: false,

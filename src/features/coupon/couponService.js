@@ -7,7 +7,7 @@ const getCoupons = async () => {
     console.log(res);
 
     if (res.data) {
-        localStorage.setItem('coupons', JSON.stringify(res.data))
+        return res.data;
     }
 
     return res.data;

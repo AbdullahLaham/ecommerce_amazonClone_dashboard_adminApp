@@ -4,7 +4,7 @@ import Cookies from 'cookies-js';
 
 
 const initialState = { 
-    customers: localStorage.getItem('customers') ? JSON.parse(localStorage.getItem('customers')): [],
+    customers: [],
     isError: false,
     isLoading: false,
     isSuccess: false,

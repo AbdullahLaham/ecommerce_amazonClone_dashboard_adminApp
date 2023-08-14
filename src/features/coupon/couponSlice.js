@@ -5,7 +5,7 @@ import Cookies from 'cookies-js';
 
 
 const initialState = { 
-    coupons: localStorage.getItem('coupons') ? JSON.parse(localStorage.getItem('coupons')): [],
+    coupons: [],
     createdCoupon: {},
     deletedCoupon: {},
     updatedCoupon: {},
