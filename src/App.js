@@ -25,6 +25,7 @@ import BlogCategory from './pages/BlogCategory';
 import CouponList from './pages/CouponList';
 import ViewEnquiry from './pages/ViewEnquiry';
 import ViewUserOrders from './pages/ViewUserOrders';
+import Chat from './pages/ChatPage/Chat';
 function App() {
   return (
     <div className="bg-[#f5f5f5]">
@@ -64,6 +65,7 @@ function App() {
           <Route path='list-brnad' element={<BrandList />} />
           <Route path='blog-category' element={<BlogCategory />} />
           <Route path='blog-category/:id' element={<BlogCategory />} />
+          <Route path='chat' element={<Chat />} />
 
           
 

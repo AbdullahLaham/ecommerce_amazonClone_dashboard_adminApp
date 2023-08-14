@@ -7,4 +7,4 @@ const CustomInput = ({label, i_id, type, style, handleChange, name, value}) => {
   
 }
 
-export default CustomInput
+export default CustomInput ;

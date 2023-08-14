@@ -1,6 +1,16 @@
 import axios from "axios";
 import API from '../MainApi'
 import Cookies from 'cookies-js'
+
+
+
+const getAllUsers = async () => {
+    const res = await API.get(`/user/admin-users`);
+    console.log(res);
+    
+    return res.data;
+}
+
 const login = async (userData) => {
     const res = await API.post(`/user/admin-login`, userData);
     console.log(res);
@@ -47,7 +57,8 @@ const authService = {
     login,
     logout,
     getOrders,
-    getOrdersByID
+    getOrdersByID,
+    getAllUsers
 }
 
 

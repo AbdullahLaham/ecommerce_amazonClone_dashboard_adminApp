@@ -22,9 +22,26 @@ const createProduct = async (product) => {
 }
 
 
+
+
+
+const deleteProduct = async (productId) => {
+    const res = await API.delete(`/product/${productId}`);
+    if (res?.data) {
+        localStorage.setItem('deletedProduct', JSON.stringify(res.data))
+    }
+    return res.data;
+}
+
+
+
+
+
+
 const productService = {
     getProducts,
     createProduct,
+    deleteProduct
 }
 
 

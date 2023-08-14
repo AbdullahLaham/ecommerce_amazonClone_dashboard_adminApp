@@ -12,7 +12,7 @@ const Menu = () => {
   const dispatch = useDispatch();
   // const {authData} = useSelector((state) => state.userReducer);
   const deleteCurrentUser = () => {
-    dispatch(logout(user));
+    dispatch(logout());
   }
   const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth)
   return (

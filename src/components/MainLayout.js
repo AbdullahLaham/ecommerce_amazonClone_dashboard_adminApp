@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import {
   AiOutlineDashboard,
@@ -17,6 +17,7 @@ import { IoIosNotifications } from "react-icons/io";
 import { FaClipboardList, FaBloggerB } from "react-icons/fa";
 import { SiBrandfolder } from "react-icons/si";
 import { BiCategoryAlt } from "react-icons/bi";
+import { BsChatDots } from 'react-icons/bs'
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -31,7 +32,13 @@ const MainLayout = () => {
   const navigate = useNavigate();
 
   const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth)
-  console.log(user)
+  console.log(user);
+
+  useEffect(() => {
+    if (!user?.email) {
+      navigate('/', {replace: true})
+    }
+  }, [])
   return (
     <Layout /* onContextMenu={(e) => e.preventDefault()} */ className="bg-[#f5f5f5]">
       <Sider trigger={null} collapsible collapsed={collapsed} className="min-h-[100vh]">
@@ -161,6 +168,11 @@ const MainLayout = () => {
               key: "enquiries",
               icon: <FaClipboardList className="fs-4" />,
               label: "Enquiries",
+            },
+            {
+              key: "chat",
+              icon: <BsChatDots className="fs-4" />,
+              label: "Chat",
             },
           ]}
         />

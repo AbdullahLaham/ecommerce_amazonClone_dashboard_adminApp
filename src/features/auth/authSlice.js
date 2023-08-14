@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authService from './authService';
 import Cookies from 'cookies-js';
+import { toast } from 'react-toastify';
 // const userDefaultState = {
 //     _id: null,
 //     firstname: '',
@@ -13,12 +14,26 @@ import Cookies from 'cookies-js';
 const initialState = { 
     user: localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth')): null,
     orders: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')): [],
+    allUsers: [],
     currentOrder: {},
     isError: false,
     isLoading: false,
     isSuccess: false,
     message: '',
  }
+
+
+ export const getAllUsers = createAsyncThunk('auth/all-users', async (id, thunkAPI) => {
+    try {
+        console.log('hello')
+
+        return await authService.getAllUsers();
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+
+ })
 
 
 
@@ -61,7 +76,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
  export const logout = createAsyncThunk('auth/logout', async (user, thunkAPI) => {
     try {
         console.log('hello')
-
+        localStorage.clear();
         return await authService.logout(user);
         
     } catch (error) {
@@ -78,6 +93,34 @@ const authSlice = createSlice({
   },
   extraReducers: (builder ) => {
      builder
+
+
+
+     
+     .addCase(getAllUsers.pending,(state) => {state.isLoading = true }  )
+
+    .addCase(getAllUsers.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false;
+        state.isSuccess = true;
+        state.allUsers = action?.payload;
+        // if (state?.isSuccess) {
+        //     toast.success("Verification Done Successfully")
+        // }
+    })
+
+    .addCase(getAllUsers.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        state.allUsers = null;
+        if (state?.isError) {
+            toast.error("Something Went Error")
+        }
+    })
+
+
+
      .addCase(login.pending,(state) => {state.isLoading = true }  )
     //  .addCase(login.fulfilled,(state, action) => {
     //     state.isLoading = false ;

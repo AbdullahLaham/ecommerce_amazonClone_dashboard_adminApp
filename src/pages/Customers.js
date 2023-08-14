@@ -47,7 +47,7 @@ const Customers = () => {
   
   
   const data1 = [];
-  customers.forEach((user) => {
+  customers?.forEach((user) => {
     if (user?.role !== 'admin') {
       data1.push({
         key: user?._id,

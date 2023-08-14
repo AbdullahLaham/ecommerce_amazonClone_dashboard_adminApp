@@ -19,10 +19,10 @@ const ColorList = () => {
       title: 'Title',
       dataIndex: 'title',
     },
-    // {
-    //   title: 'Color',
-    //   dataIndex: 'color',
-    // },
+    {
+      title: 'Color',
+      dataIndex: 'color',
+    },
     {
       title: 'Action',
       dataIndex: 'action',
@@ -76,7 +76,7 @@ const ColorList = () => {
         </button>
       </div>,
       color: <div>
-      <p className={`w-[1.5rem] h-[1.5rem] bg-[${color?.title}]`}></p>
+      <p className={`w-[1.5rem] h-[1.5rem] rounded-full`} style={{backgroundColor: color?.title}}></p>
     </div>,
 
     });
