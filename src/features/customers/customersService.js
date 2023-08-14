@@ -7,7 +7,7 @@ const getUsers = async () => {
     console.log(res);
 
     if (res.data) {
-        localStorage.setItem('customers', JSON.stringify(res.data))
+        return res.data;
     }
 
     return res.data;

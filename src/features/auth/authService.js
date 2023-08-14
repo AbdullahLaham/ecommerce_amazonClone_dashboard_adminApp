@@ -34,7 +34,7 @@ const getOrders = async () => {
     console.log(res);
 
     if (res.data) {
-        localStorage.setItem('orders', JSON.stringify(res.data))
+        return res.data;
     }
 
     return res.data;
