@@ -59,8 +59,8 @@ const Orders = () => {
     data1.push({
       key: i + 1,
       name: order?.name,
-      products: order?.products.map((product) => {
-        return <div>{product.product.title} , </div> 
+      products: order?.orderItems?.map(({product}) => {
+        return <div>{product.title} , </div> 
       }),
       orderBy: order?.orderBy?.firstname,
       amount: order?.paymentIntent?.amount,
