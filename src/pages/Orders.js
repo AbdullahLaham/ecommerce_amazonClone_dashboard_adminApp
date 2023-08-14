@@ -30,10 +30,10 @@ const Orders = () => {
           title: 'UserOrders',
           dataIndex: 'orderProducts',
         },
-        {
-          title: 'orderBy',
-          dataIndex: 'orderBy',
-        },
+        // {
+        //   title: 'orderBy',
+        //   dataIndex: 'orderBy',
+        // },
         {
           title: 'Date',
           dataIndex: 'createdAt',
@@ -59,10 +59,10 @@ const Orders = () => {
     data1.push({
       key: i + 1,
       name: order?.name,
-      products: order?.orderItems?.map(({product}) => {
-        return <div>{product.title} , </div> 
+      products: order?.orderItems?.map((product) => {
+        return <div>{product?.product?.title} , </div> 
       }),
-      orderBy: order?.orderBy?.firstname,
+      // orderBy: order?.orderBy?.firstname,
       amount: order?.paymentIntent?.amount,
       orderProducts: <Link to={`/admin/order/${order?._id}`}>View Order Products</Link>,
       paymentIntent: order?.paymentIntent?.status,
