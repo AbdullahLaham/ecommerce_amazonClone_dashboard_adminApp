@@ -7,6 +7,7 @@ import { BiEdit } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import CustomModal from '../components/CustomModal';
 import { resetState } from '../features/brand/brandSlice';
+import Spinner from './Spinner';
 
 const CategoryList = () => {
   const dataSource = [
@@ -41,7 +42,7 @@ const CategoryList = () => {
 
 
 
-  const {categories, updatedCategory, deletedCategory} = useSelector((state) => state?.categories);
+  const {categories, updatedCategory, deletedCategory, isLoading} = useSelector((state) => state?.categories);
   const [open, setOpen] = useState(false);
   const [categoryId, setCategoryId] = useState('');
   console.log(categories, 'dddddddd');
@@ -89,6 +90,9 @@ const CategoryList = () => {
   });
 
 
+  if (isLoading) {
+    return <Spinner />
+  }
 
   return (
     <div>

@@ -11,6 +11,7 @@ import {AiOutlineClose} from 'react-icons/ai'
 import { toast } from 'react-toastify';
 import { createBrand } from '../features/brand/brandSlice';
 import { createCategory, getCategories, getCategory, resetState, updateCategory } from '../features/pcategory/pcategorySlice';
+import Spinner from './Spinner';
 
 const Category = () => {
   const navigate = useNavigate();
@@ -81,7 +82,9 @@ const Category = () => {
     validationSchema: categorySchema,
   });
 
-
+  if (isLoading) {
+    return <Spinner />
+  }
 
   return (
     <div>

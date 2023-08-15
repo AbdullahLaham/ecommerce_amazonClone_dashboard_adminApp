@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import {BiEdit} from 'react-icons/bi';
 import {AiFillDelete} from 'react-icons/ai';
 import CustomModal from '../components/CustomModal';
+import Spinner from './Spinner';
 
 const ProductList = () => {
   // const dataSource = [
@@ -22,7 +23,7 @@ const ProductList = () => {
   //     status: '10 Downing Street',
   //   },
   // ];
-    const {products, deletedProduct} = useSelector((state) => state?.products);
+    const {products, deletedProduct, isLoading} = useSelector((state) => state?.products);
 
   const [open, setOpen] = useState(false);
 
@@ -108,7 +109,9 @@ const ProductList = () => {
       });
     }
   })
-
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <div>
       <div className=' my-6'>

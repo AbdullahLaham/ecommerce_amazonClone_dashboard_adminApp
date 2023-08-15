@@ -2,6 +2,8 @@ import { Table } from 'antd'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from '../features/customers/customerSlice';
+import Spinner from './Spinner';
+
 
 const Customers = () => {
   const dataSource = [
@@ -43,7 +45,7 @@ const Customers = () => {
     dispatch(getUsers())
   }, []);
 
-  const {customers} = useSelector((state) => state?.customers);
+  const {customers, isLoading} = useSelector((state) => state?.customers);
   
   
   const data1 = [];
@@ -57,6 +59,10 @@ const Customers = () => {
       });
     }
   })
+
+  if (isLoading) {
+    return <Spinner />
+  }
 
   return (
     <div>

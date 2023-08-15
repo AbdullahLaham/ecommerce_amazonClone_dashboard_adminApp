@@ -7,6 +7,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { createBrand, resetState } from '../features/brand/brandSlice';
 import { createCoupon, getCoupon, updateCoupon } from '../features/coupon/couponSlice';
+import Spinner from './Spinner';
+
 const Coupon = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -82,6 +84,9 @@ const Coupon = () => {
     validationSchema: couponSchema,
   });
 
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <div>
       <h3 className='font-bold text-[1.5rem] text-gray-900 my-6'>{id ? "Edit" :  "Add"} Coupon</h3>

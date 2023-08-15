@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {login} from '../features/auth/authSlice'
 import { base_url } from '../utils/base_url';
 import axios from 'axios';
+import Spinner from './Spinner';
+
 const Login = () => {
 
   const dispatch = useDispatch();
@@ -42,6 +44,9 @@ const Login = () => {
     }
   }, [user, isLoading, isError, isSuccess, message])
 
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <div className='py-5 h-[100vh] w-[100%] flex items-center justify-center rounded-lg' style={{background: "#ffd333"}}>
         <form className='bg-white w-[30%] p-5 flex flex-col items-center gap-2' onSubmit={formik.handleSubmit}>

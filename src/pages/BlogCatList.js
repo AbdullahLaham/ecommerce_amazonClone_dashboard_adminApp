@@ -7,12 +7,13 @@ import { AiFillDelete } from 'react-icons/ai';
 import {deleteBlogCategory, getBlogCategories, resetState} from '../features/bcategory/bcategorySlice'
 import CustomInput from '../components/CustomInput'
 import CustomModal from '../components/CustomModal';
+import Spinner from './Spinner';
 
 const BlogCatList = () => {
 
   const [open, setOpen] = useState(false);
   const [categoryId, setCategoryId] = useState('');
-  const {blogCategories, updatedBlogCategory, deletedBlogCategory} = useSelector((state) => state?.blogCategories);
+  const {blogCategories, updatedBlogCategory, deletedBlogCategory, isLoading} = useSelector((state) => state?.blogCategories);
 
   useEffect(() => {
     dispatch(resetState());
@@ -76,7 +77,9 @@ const BlogCatList = () => {
     
   });
 
-
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <div>
       <div className=' my-6'>

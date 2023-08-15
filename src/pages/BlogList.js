@@ -6,11 +6,12 @@ import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
 import { getBlog, getBlogs, resetState, deleteBlog, updateBlog } from '../features/blog/blogSlice'
 import CustomModal from '../components/CustomModal';
+import Spinner from './Spinner';
 
 const BlogList = () => {
   const [open, setOpen] = useState(false);
   const [blogId, setBlogId] = useState('');
-  const {blogs, updatedBlog, deletedBlog} = useSelector((state) => state?.blogs);
+  const {blogs, updatedBlog, deletedBlog, isLoading} = useSelector((state) => state?.blogs);
 
   useEffect(() => {
     dispatch(resetState());
@@ -88,6 +89,9 @@ const BlogList = () => {
     
   });
 
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <div>
       <div className=' my-6'>

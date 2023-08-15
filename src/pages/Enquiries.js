@@ -10,6 +10,8 @@ import CustomModal from '../components/CustomModal';
 import {BsEye} from 'react-icons/bs'
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import Spinner from './Spinner';
+
 const Enquiries = () => {
     
       
@@ -46,7 +48,7 @@ const Enquiries = () => {
 
       const {id} = useParams();
     const navigate = useNavigate();
-    const {enquiries, currentEnquiry, deletedEnquiry, updatedEnquiry} = useSelector((state) => state?.enquiries);
+    const {enquiries, currentEnquiry, deletedEnquiry, updatedEnquiry, isLoading} = useSelector((state) => state?.enquiries);
 
     useEffect(() => {
         dispatch(getEnquiry(id));
@@ -164,6 +166,9 @@ const Enquiries = () => {
     
   });
 
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <div>
 

@@ -15,6 +15,7 @@ import { createBlog, getBlog, getBlogs, resetState, updateBlog } from '../featur
 import { toast } from 'react-toastify';
 import { AiOutlineClose } from 'react-icons/ai';
 import { getBlogCategories } from '../features/bcategory/bcategorySlice';
+import Spinner from './Spinner';
 
 const Blog = () => {
   const [value, setValue]=  useState('');  
@@ -111,6 +112,9 @@ const Blog = () => {
     dispatch(getBlogCategories());
   }, []);
 
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <div>
         <h4 className='font-bold text-[1.5rem] text-gray-900 my-6'>Add Blog</h4>

@@ -7,6 +7,7 @@ import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
 import { deleteColor, getColors } from '../features/pcolor/pcolorSlice';
 import CustomModal from '../components/CustomModal';
+import Spinner from './Spinner';
 
 const ColorList = () => {
   
@@ -31,7 +32,7 @@ const ColorList = () => {
   
 
   
-  const {colors, deletedColor, updatedColor} = useSelector((state) => state?.colors);
+  const {colors, deletedColor, updatedColor, isLoading} = useSelector((state) => state?.colors);
 
   console.log(colors, 'dddddddd');
   const dispatch = useDispatch();
@@ -82,7 +83,9 @@ const ColorList = () => {
     });
     
   });
-
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <div>
       <div className=' my-6'>

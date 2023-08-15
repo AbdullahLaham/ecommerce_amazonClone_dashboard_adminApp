@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import { createBrand } from '../features/brand/brandSlice';
 import { createCategory } from '../features/pcategory/pcategorySlice';
 import { createColor, getColor, resetState, updateColor } from '../features/pcolor/pcolorSlice';
+import Spinner from './Spinner';
 
 const Color = () => {
   const navigate = useNavigate();
@@ -74,6 +75,11 @@ const Color = () => {
     onSubmit: handleSubmit,
     validationSchema: colorSchema,
   });
+
+
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <div>
         <h3 className='font-bold text-[1.5rem] text-gray-900 my-6'>{id ? "Edit" : "Add"} Color</h3>

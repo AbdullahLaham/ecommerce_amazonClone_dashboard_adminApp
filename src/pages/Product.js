@@ -20,6 +20,8 @@ import { deleteImage, uploadImage } from '../features/upload/uploadSlice';
 import {AiOutlineClose} from 'react-icons/ai'
 import { createProduct, resetState } from '../features/product/productSlice';
 import { toast } from 'react-toastify';
+import Spinner from './Spinner';
+
 const Product = () => {
 
   const { Dragger } = Upload;
@@ -125,6 +127,14 @@ const Product = () => {
     useEffect(() => {
       formik.setFieldValue('images', images?.length && images);
     }, [images]);
+
+
+
+
+
+    if (isLoading) {
+      return <Spinner />
+    }
 
   return (
     <div>

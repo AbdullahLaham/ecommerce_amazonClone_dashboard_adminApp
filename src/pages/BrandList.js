@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
 import CustomModal from '../components/CustomModal';
+import Spinner from './Spinner';
 
 const BrandList = () => {
   // params
@@ -47,7 +48,7 @@ const BrandList = () => {
   ];
 
 
-  const {brands, updatedBrand, deletedBrand} = useSelector((state) => state?.brands);
+  const {brands, updatedBrand, deletedBrand, isLoading} = useSelector((state) => state?.brands);
 
   console.log(brands, 'dddddddd');
   const dispatch = useDispatch();
@@ -78,7 +79,9 @@ const BrandList = () => {
   });
 
 
-
+  if (isLoading) {
+    return <Spinner />
+  }
 
 
   return (

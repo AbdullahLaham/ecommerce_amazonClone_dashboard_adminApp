@@ -10,6 +10,7 @@ import { deleteImage, uploadImage } from '../features/upload/uploadSlice';
 import {AiOutlineClose} from 'react-icons/ai'
 import { toast } from 'react-toastify';
 import { createBlogCategory, getBlogCategory, resetState, updateBlogCategory } from '../features/bcategory/bcategorySlice';
+import Spinner from './Spinner';
 
 
 const BlogCategory = () => {
@@ -80,6 +81,9 @@ const BlogCategory = () => {
     onSubmit: handleSubmit,
     validationSchema: blogCategorySchema,
   });
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <div>
         <h3 className='font-bold text-[1.5rem] text-gray-900 my-6'>{id ? "Edit" :  "Add"} Blog Category</h3>

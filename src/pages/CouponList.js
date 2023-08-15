@@ -7,6 +7,7 @@ import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
 import { deleteCoupon, getCoupons } from '../features/coupon/couponSlice';
 import CustomModal from '../components/CustomModal';
+import Spinner from './Spinner';
 
 const CouponList = () => {
   const [open, setOpen] = useState(false);
@@ -54,7 +55,7 @@ const CouponList = () => {
   ];
 
 
-  const {coupons, deletedCoupon, updatedCoupon} = useSelector((state) => state?.coupons);
+  const {coupons, deletedCoupon, updatedCoupon, isLoading} = useSelector((state) => state?.coupons);
 
   console.log(coupons, 'dddddddd');
   const dispatch = useDispatch();
@@ -86,7 +87,9 @@ const CouponList = () => {
   });
 
 
-
+  if (isLoading) {
+    return <Spinner />
+  }
 
 
   return (

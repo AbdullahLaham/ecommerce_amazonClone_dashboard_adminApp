@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { createBrand, getABrand, getBrands, resetState, updateBrand,  } from '../features/brand/brandSlice';
+import Spinner from './Spinner';
+
 const Brand = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -89,7 +91,9 @@ const Brand = () => {
     validationSchema: brandSchema,
   });
 
-
+  if (isLoading) {
+    return <Spinner />
+  }
 
   return (
     <div>

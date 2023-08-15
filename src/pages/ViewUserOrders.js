@@ -7,6 +7,8 @@ import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
 import { getOrders, getOrdersByID } from '../features/auth/authSlice';
 import { BsEye } from 'react-icons/bs';
+import Spinner from './Spinner';
+
 const ViewUserOrders = () => {
 
       const columns = [
@@ -40,7 +42,7 @@ const ViewUserOrders = () => {
 
       ];
 
-  const {orders, currentOrder} = useSelector((state) => state?.orders);
+  const {orders, currentOrder, isLoading} = useSelector((state) => state?.orders);
   console.log(currentOrder, 'tttttt')  
   console.log(orders, 'dddddddd');
   const dispatch = useDispatch();
@@ -69,7 +71,9 @@ const ViewUserOrders = () => {
     });
     
   });
-
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <div>
       <div className=' my-6'>

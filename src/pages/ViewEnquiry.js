@@ -5,12 +5,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Select } from 'antd';
+import Spinner from './Spinner';
+
 const ViewEnquiry = () => {
     // EnqID
     const {id} = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {currentEnquiry, deletedEnquiry, updatedEnquiry} = useSelector((state) => state?.enquiries);
+    const {currentEnquiry, deletedEnquiry, updatedEnquiry, isLoading} = useSelector((state) => state?.enquiries);
 
     useEffect(() => {
         dispatch(getEnquiry(id));
@@ -58,7 +60,9 @@ const ViewEnquiry = () => {
         {label: "In Progress", value: "In Progress"},
         {label: "Resolved", value: "Resolved"}
       ]
-      
+      if (isLoading) {
+        return <Spinner />
+      }
   return (
     <div>
         <h className='text-[1.5rem]  font-bold mb-[2.5rem] text-gray-500 '>View Enquiry</h>
